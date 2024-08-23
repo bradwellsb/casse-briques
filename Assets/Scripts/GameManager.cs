@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public int lives = numLives;
     public int level = 1;
-    public bool Launched = false;
+    public bool BallLaunched = false;
+    public bool GameStarted = false;
+    public bool Paused = false;
     private void Awake()
     {
         if (Instance == null) // If there is no instance already set
@@ -33,7 +35,8 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        Launched = false;
+        GameStarted = true;
+        BallLaunched = false;
         score = 0;
         lives = numLives;
         LoadLevel(1);
@@ -61,7 +64,8 @@ public class GameManager : MonoBehaviour
         }
     }
     public void GameOver()
-    {        
+    {
+        GameStarted = false;
         SceneManager.LoadScene("GameOver");
     }
     public void Hit(Brick brick)
@@ -69,15 +73,20 @@ public class GameManager : MonoBehaviour
         score += brick.points;
         if (IsLevelComplete())
         {
-            if(level < numLevels)
+            if (level < numLevels)
                 LoadLevel(level + 1);
             else
-                SceneManager.LoadScene("GameWin");
+                Win();
         }
+    }
+    public void Win()
+    {
+        GameStarted = false;
+        SceneManager.LoadScene("GameWin");
     }
     public void Miss()
     {
-        Launched = false;
+        BallLaunched = false;
         lives--;
         if (lives > 0)
         {
@@ -86,6 +95,36 @@ public class GameManager : MonoBehaviour
         else
         {
             GameOver();
+        }
+    }
+
+    private void PauseGame()
+    {
+        if (!Paused)
+        {
+            Paused = true;
+            Time.timeScale = 0f;
+        }
+    }
+
+    private void ResumeGame()
+    {
+        if (Paused)
+        {
+            Paused = false;
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void TogglePause()
+    {
+        if (Paused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
         }
     }
 

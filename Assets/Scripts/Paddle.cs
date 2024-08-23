@@ -28,7 +28,7 @@ public class Paddle : MonoBehaviour
     private void FixedUpdate()
     {
         //if direction not zero, move paddle
-        if (direction != Vector2.zero && FindObjectOfType<GameManager>().Launched) //only move paddle if ball has been launched
+        if (direction != Vector2.zero && FindObjectOfType<GameManager>().BallLaunched) //only move paddle if ball has been launched
         {
             rbody.AddForce(direction * speed);
         }
