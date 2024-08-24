@@ -8,7 +8,7 @@ public class Brick : MonoBehaviour
     private int health;
     private SpriteRenderer spriteRenderer;
     public Sprite[] states;
-    public bool isBreakable = true;
+    public bool breakable = true;
     public int points = 100;
     private void Awake()
     {
@@ -16,7 +16,7 @@ public class Brick : MonoBehaviour
     }
     private void Start()
     {
-        if(isBreakable)
+        if(breakable)
         {
             health = states.Length;
             spriteRenderer.sprite = states[health - 1];
@@ -24,7 +24,7 @@ public class Brick : MonoBehaviour
     }
     private void Hit()
     {
-        if (isBreakable)
+        if (breakable)
         {
             health--;
             if (health > 0)

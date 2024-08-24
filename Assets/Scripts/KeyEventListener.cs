@@ -25,5 +25,12 @@ public class KeyEventListener : MonoBehaviour
             //ball launch is handled in Ball.cs
             //paddle movement is handled in Paddle.cs
         }
+        else if (Input.GetKeyDown(KeyCode.Escape)) //escape twice to quit (once if paused)
+        {
+            if(!gameManager.Paused)
+                gameManager.TogglePause();
+            else
+                Application.Quit();
+        }
     }
 }

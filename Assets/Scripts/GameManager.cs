@@ -3,14 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private const int numLevels = 1;
-    private const int numLives = 3;    
+    private const int numLevels = 4;
+    private const int numLives = 5;
+    private const int startingLevel = 1;
     public static GameManager Instance;
     private Ball ball;
     private Paddle paddle;
     public int score = 0;
     public int lives = numLives;
-    public int level = 1;
+    public int level = startingLevel;
     public bool BallLaunched = false;
     public bool GameStarted = false;
     public bool Paused = false;
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
         BallLaunched = false;
         score = 0;
         lives = numLives;
-        LoadLevel(1);
+        LoadLevel(startingLevel);
     }
     private void LoadLevel(int levelToLoad)
     {
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour
         Brick[] bricks = FindObjectsOfType<Brick>();
         foreach (Brick brick in bricks)
         {
-            if (brick.isBreakable && brick.gameObject.activeInHierarchy)
+            if (brick.breakable && brick.gameObject.activeInHierarchy)
             {
                 return false;
             }
