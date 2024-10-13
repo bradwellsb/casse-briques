@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     private void LoadLevel(int levelToLoad)
     {
         level = levelToLoad;
+        BallLaunched = false;
         SceneManager.LoadScene("Level" + levelToLoad);
     }
     public void ResetLevel()
